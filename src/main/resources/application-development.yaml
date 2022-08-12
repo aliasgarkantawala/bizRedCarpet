@@ -1,0 +1,48 @@
+server:
+  port: 1127
+
+spring:
+  application:
+    name: red-carpet-1
+  cloud:
+    gateway:
+      routes:
+      - id: DumDum
+        uri: lb://DumDum/
+        predicates:
+        - Path=/dummy/**
+      - id: ACCESS-CONTROL
+        uri: lb://ACCESS-CONTROL/
+        predicates:
+        - Path=/acl/**
+  main:
+    allow-bean-definition-overriding: true
+  
+  redis:
+    port: 6379
+    host: localhost
+    
+logging:
+  level:
+    org:
+      springframework:
+        security: INFO
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:1128/eureka/
+      
+ums:
+  url: https://ums.qa1.indopus.in
+  validate:
+    api: /api/users/validate?jwt_token={jwt_token}
+  fetch-user:
+    api: /api/users/
+  fetch-company:
+    api: /api/companies/
+  secret-token: hbicfwidx851yifx0k2or527udm5thn6w22wy7wkm0ms60beg5qvci00k3km7qxejlvurs1xjr8kpipl8hggwptllq4v3azg8kblncpb7l8vbp0muw6pjp1t7rh57i92
+
+secret-token: ENC(ZlRihGCUL9/mXugNhNuvz+ObiQnyrhNu/ABvoBWITYT1HAgUD1MBwvPEj7yOc5Ukm83bbYyMBqUdpBsLfRk6CVJcWmWn/C3xUHntCt7WIm0wn1NzO8Ul7fYNWt7m6s0i1O9nRi2t0dfOkAJpiVU0RPqZvsupio6r5c6o0gDpvGtv8AfM+JkAoTLYabDIfScI)
